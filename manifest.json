@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn → Notion 剪藏",
+  "short_name": "LinkedIn 剪藏",
+  "version": "1.1.0",
+  "description": "一键把 LinkedIn 动态和文章（含图片）剪藏到 Notion 数据库。",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArIXbdtu9kSCZTZJ3m0OLhU8c2IoeDY3MaHWvH26GTHdzbl0KyHHiyfwLECZGTRkiQP5QwTF01C8dAPAT7mOoTktomhn3wJ5GbDxhr5hXQiyIA4NR++eo8f9rvsIubO1FzB/ZTu3XUnFruoJgvPz/2syPKC+p9WyxkCp4ZQw5yXoq1POCcG+PdJEPde/t2LlK9M1XCmAeIY7nTQXzx+yczhOTpc7ZQp/CJbnGE+PRiC3wgWMOs245cSwk9faQVIpiDmUa7DWLQcdzUev8GD0CVmVnujrn/Qv1IHF76dpaqg8oWIbRuWOi5rGCUULsg1JQkYWsICHmInh5PzidR1L+gwIDAQAB",
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "剪藏当前 LinkedIn 动态/文章到 Notion",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "options_page": "src/options/options.html",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.notion.com/*",
+    "https://media.licdn.com/*",
+    "https://www.linkedin.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/*"
+      ],
+      "js": [
+        "src/content/extract.js",
+        "src/content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

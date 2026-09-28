@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkedIn → Notion 剪藏 · 设置</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header class="page-head">
+        <img src="../../icons/icon48.png" alt="" width="40" height="40" />
+        <div>
+          <h1>LinkedIn → Notion 剪藏</h1>
+          <p class="muted">在 LinkedIn 动态右上角点书签按钮，或在文章页点「剪藏文章到 Notion」，文字和图片会一起存进你的 Notion 数据库。</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2><span class="step">1</span>连接 Notion</h2>
+
+        <label for="token">集成令牌（Internal Integration Secret）</label>
+        <div class="row">
+          <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="ntn_… 或 secret_…" />
+          <button id="toggle-token" type="button" class="ghost">显示</button>
+        </div>
+        <p class="hint">
+          在 <a href="https://www.notion.so/profile/integrations" target="_blank" rel="noopener">notion.so/profile/integrations</a>
+          新建一个「内部（Internal）」集成，复制它的密钥。设置会通过 Chrome 同步到你的其他设备，只需填一次。
+        </p>
+
+        <div class="row actions">
+          <button id="connect" type="button" class="primary">连接</button>
+          <span id="connect-status" class="status" role="status"></span>
+        </div>
+      </section>
+
+      <section class="card" id="database-card" hidden>
+        <h2><span class="step">2</span>选择数据库</h2>
+        <div class="row">
+          <select id="database-select" aria-label="数据库"></select>
+          <button id="refresh-databases" type="button" class="ghost">刷新列表</button>
+        </div>
+        <p class="hint">
+          列表里只有已连接此集成的数据库。没看到想要的？在 Notion 中打开那个数据库 → 右上角 <b>···</b> →
+          <b>连接（Connections）</b> → 添加你的集成，然后点「刷新列表」。
+        </p>
+        <details class="fallback">
+          <summary>或者粘贴数据库链接</summary>
+          <div class="row">
+            <input id="database" type="text" spellcheck="false" placeholder="https://www.notion.so/…/xxxxxxxx?v=…" />
+            <button id="use-link" type="button" class="secondary">使用此链接</button>
+          </div>
+        </details>
+        <p id="database-status" class="status" role="status"></p>
+      </section>
+
+      <section class="card" id="mapping-card" hidden>
+        <h2><span class="step">3</span>字段对应</h2>
+        <p class="muted">选择每项信息写进数据库的哪个属性。页面正文总会包含完整文字和图片。</p>
+        <div class="mapping">
+          <div class="map-row">
+            <span class="map-label">标题</span>
+            <span class="map-fixed" id="title-prop"></span>
+          </div>
+          <div id="map-rows"></div>
+        </div>
+        <div class="row actions" id="recommend-row" hidden>
+          <button id="add-recommended" type="button" class="secondary">一键添加推荐属性</button>
+          <span id="recommend-text" class="hint inline"></span>
+        </div>
+      </section>
+
+      <section class="card" id="options-card" hidden>
+        <h2><span class="step">4</span>选项</h2>
+        <label class="check"><input type="checkbox" id="use-cover" /> 用第一张图片作为 Notion 页面封面</label>
+        <label class="check"><input type="checkbox" id="dedupe" checked /> 已剪藏过的内容不重复保存（需要设置「原帖链接」属性）</label>
+      </section>
+
+      <section class="card help">
+        <h2>使用方法</h2>
+        <ul>
+          <li><b>动态：</b>每条动态右上角「···」左边会出现一个书签按钮，点一下即可剪藏；剪藏成功后按钮变绿，再点会打开 Notion 页面（按住 Shift 点击可重新保存）。</li>
+          <li><b>文章：</b>打开 LinkedIn 文章（/pulse/…）时，左下角会出现「剪藏文章到 Notion」按钮。</li>
+          <li><b>工具栏：</b>点浏览器工具栏里的扩展图标，会剪藏当前文章，或屏幕上最显眼的那条动态。</li>
+          <li><b>图片：</b>图片会下载后上传到 Notion（永久保存）。Notion 免费版单个文件上限 5 MB，超出时会自动选用较小尺寸。</li>
+          <li><b>限制：</b>视频只保存封面；PDF 文档轮播只保存页面上已加载的页；LinkedIn 改版后若按钮消失，请更新扩展。</li>
+        </ul>
+      </section>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

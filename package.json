@@ -1,0 +1,12 @@
+{
+  "name": "linkedin-notion-clipper",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Chrome extension: clip LinkedIn posts and articles (with images) into a Notion database.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "icons": "python3 scripts/make_icons.py",
+    "package": "node scripts/package.mjs"
+  }
+}
